@@ -177,9 +177,8 @@ var UIController = (function() {
         dateLabel:'.budget__title--month',
     };
 
-    
-    var  formatNumber = function(num, type){
-        var numSplit, int, dec;
+    var formatNumber = function(num, type){
+        var numSplit, int, dec, type;
         num = Math.abs(num);
         num = num.toFixed(2);
 
@@ -191,12 +190,11 @@ var UIController = (function() {
         }
 
         dec = numSplit[1];
-        type === 'exp' ? sign = '-' : sign = '+';
+        
+        return (type == 'exp' ? '-' : '+') + ' ' + int + '.' +dec;
 
-        return (type === 'exp' ?  '-' :   '+')+ ' ' + int + '.' +dec;
 
-
-    };
+        };
 
     var nodeListForEach = function(list, callBack){
         for (var i = 0; i < list.length; i++){
@@ -237,7 +235,7 @@ var UIController = (function() {
             // replace the place holder text with some actual data
             newHtml = html.replace('%id%', obj.id);
             newHtml = newHtml.replace('%description%', obj.description);
-            newHtml = newHtml.replace('%value%', formatNumber(obj.value));
+            newHtml = newHtml.replace('%value%', formatNumber(obj.value, type));
             // insert the html into the dom
              document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
 
@@ -340,7 +338,8 @@ var UIController = (function() {
         },
                 
 
-
+            
+        
             
 
         
